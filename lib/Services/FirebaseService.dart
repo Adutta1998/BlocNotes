@@ -9,11 +9,7 @@ class FirebaseService{
 
   Future<List<Map>> fetchNDeleted() async {
     CollectionReference reference = FirebaseFirestore.instance.collection("/Notes");
-    // var lp = await reference.snapshots().length;
-    // print(lp);
-
-    var l = await reference.get();
-    // List<Map> list = l.docs.map((e) => e.data() as Map).toList();
+    var l = await reference.where("deleted",isEqualTo: false).get();
     List<Map> list = l.docs.map((e){
       Map t = e.data() as Map;
       t["id"] = e.id;
