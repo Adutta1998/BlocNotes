@@ -23,6 +23,7 @@ class NoteTile extends StatelessWidget {
             children: [
             Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
               Text(n.title,style: TextStyle(fontWeight: FontWeight.bold),),
+              // SizedBox(width: MediaQuery.of(context).size.width-20.0,child: Text(n.note,overflow: TextOverflow.ellipsis,softWrap: ,),)
               SizedBox(width: MediaQuery.of(context).size.width-20.0,child: Text(n.note, overflow: TextOverflow.ellipsis,maxLines: 1,softWrap: false,))
             ],),
           ],),

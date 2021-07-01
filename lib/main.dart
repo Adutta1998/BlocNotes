@@ -22,7 +22,7 @@ class RootApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      theme: ThemeData(primarySwatch: Colors.deepOrange),
       debugShowCheckedModeBanner: false,
       home: BlocProvider(
           create: (context)=>NavigationCubit(),

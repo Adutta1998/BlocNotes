@@ -26,10 +26,12 @@ class ViewNoteScreen extends StatelessWidget {
                   child: Text(note.note, style: TextStyle(fontSize: 30.0),),
                 ),
               ),
-              floatingActionButton: FloatingActionButton.extended(onPressed: () {
+              floatingActionButton: (!note.deleted)?FloatingActionButton.extended(onPressed: () {
                 BlocProvider.of<DeleteDataFirestoreCubit>(context).delete(note.id);
-              },
-                  icon: Icon(Icons.delete_forever), label: Text("Send to Trash")),
+                },
+                  icon: Icon(Icons.delete_forever),
+                  label: Text("Send to Trash"),
+              ):Container(),
             );
           if(state is DeleteDataFirestoreDeleting)
             return Scaffold(
@@ -37,9 +39,13 @@ class ViewNoteScreen extends StatelessWidget {
             );
           if(state is DeleteDataFirestoreDeleted){
             if(state.status){
-              Navigator.of(context).pop();
+              return Scaffold(
+                body: Center(child: ElevatedButton(child: Text("Deleted"),onPressed: (){
+                  Navigator.of(context).pop();
+                },),),
+              );
             }else{
-              return Center(child: Text("Deletion Aborted!!"),);
+              return Scaffold(body:Center(child: Text("Deletion Aborted!!"),));
             }
           }
           return Text("Delete Screen");
