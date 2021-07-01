@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "244035273261",
+    "project_id": "flnotes-87b04",
+    "storage_bucket": "flnotes-87b04.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244035273261:android:ac5ca43ea92c157d252ea4",
+        "android_client_info": {
+          "package_name": "com.example.notes.notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244035273261-f7flrq2m3a5frc10s24touaeafedtd3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMOplJVsbPEe06IfN9bLna6pSsYPw4_sQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244035273261-f7flrq2m3a5frc10s24touaeafedtd3h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
