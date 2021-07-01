@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:notes/data/Note.dart';
+import 'package:notes/screens/HomeScreen.dart';
 import 'package:notes/screens/ViewNoteScreen.dart';
 
 class NoteTile extends StatelessWidget {
@@ -11,7 +12,7 @@ class NoteTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ViewNoteScreen(note: n,)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ViewNoteScreen(note: n,))).then((value) => (context as Element).markNeedsBuild());
       },
       child: Container(
         color: Colors.grey[200],

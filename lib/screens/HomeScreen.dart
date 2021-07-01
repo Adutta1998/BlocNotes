@@ -62,7 +62,7 @@ Widget _navbar(context) {
 
 Widget _fab(context) {
   return FloatingActionButton(onPressed: (){
-    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddNoteScreen()));
+    Navigator.of(context).push(MaterialPageRoute(builder: (context)=>AddNoteScreen())).then((value) => (context as Element).markNeedsBuild());
   },child: Icon(Icons.add),);
 }
 

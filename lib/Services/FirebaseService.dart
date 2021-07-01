@@ -51,4 +51,12 @@ class FirebaseService{
     return false;
   }
 
+  Future<bool> markedTrashed(String id) async {
+    CollectionReference reference = FirebaseFirestore.instance.collection("/Notes");
+    await reference.doc(id).update({
+      'deleted':true
+    });
+    return true;
+  }
+
 }

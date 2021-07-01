@@ -33,4 +33,8 @@ class FirebaseRepository{
     return p;
   }
 
+  Future<bool> markTrashed(String id) async{
+    return await service.markedTrashed(id);
+  }
+
 }
