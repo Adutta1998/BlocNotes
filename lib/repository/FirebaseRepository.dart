@@ -27,8 +27,8 @@ class FirebaseRepository{
     service.deleteCollection(id);
   }
 
-  Future<bool> addData(String title, String note) async {
-    Note n = Note(id: "0", title: title, note: note, deleted: false);
+  Future<bool> addData(String title, String note,String? url) async {
+    Note n = Note(id: "0", title: title, note: note, deleted: false,url: url);
     bool p = await service.addData(n);
     return p;
   }

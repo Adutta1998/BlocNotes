@@ -5,6 +5,7 @@ import 'package:notes/cubit/delete_data_firestore_cubit.dart';
 import 'package:notes/cubit/firestore_data_cubit.dart';
 import 'package:notes/data/Note.dart';
 import 'package:notes/repository/FirebaseRepository.dart';
+import 'package:notes/screens/VideoPlayerScreen.dart';
 
 class ViewNoteScreen extends StatelessWidget {
   Note note;
@@ -23,7 +24,16 @@ class ViewNoteScreen extends StatelessWidget {
               body: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(note.note, style: TextStyle(fontSize: 30.0),),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(note.note, style: TextStyle(fontSize: 30.0),),
+                      SizedBox(height: 30.0,),
+                      if(note.url != null) ElevatedButton(onPressed: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>VideoPlayerScreen(url: note.url.toString(),)));
+                      }, child: Text("Open Video"))
+                    ],
+                  ),
                 ),
               ),
               floatingActionButton: (!note.deleted)?FloatingActionButton.extended(onPressed: () {
@@ -33,6 +43,8 @@ class ViewNoteScreen extends StatelessWidget {
                   label: Text("Send to Trash"),
               ):Container(),
             );
+
+
           if(state is DeleteDataFirestoreDeleting)
             return Scaffold(
               body: Center(child: CircularProgressIndicator(),),

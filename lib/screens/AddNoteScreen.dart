@@ -7,7 +7,9 @@ import 'package:notes/repository/FirebaseRepository.dart';
 
 class AddNoteScreen extends StatelessWidget {
   AddNoteScreen({Key? key}) : super(key: key);
-  TextEditingController title=TextEditingController(),note = TextEditingController();
+  TextEditingController title=TextEditingController(),
+      note = TextEditingController(),
+      url = TextEditingController();
   FirebaseRepository repository = FirebaseRepository(service: FirebaseService(init: "Firebase"));
   // final GlobalKey<FormState> key = GlobalKey<FormState>();
 
@@ -33,8 +35,9 @@ class AddNoteScreen extends StatelessWidget {
                     SizedBox(height: 10.0,),
                     _noteText(),
                     SizedBox(height: 10.0,),
-                    _videoCheck(context),
+                    _videoCheck(context,state.checkedState),
                     SizedBox(height: 10.0,),
+                    (state.checkedState)?_urlInput(context):Text(""),
                     _submitButton(context)
                   ],
                 ),
@@ -93,14 +96,18 @@ class AddNoteScreen extends StatelessWidget {
 
  Widget _submitButton(context) {
     return ElevatedButton.icon(onPressed:(){
-      BlocProvider.of<AddDataFirestoreCubit>(context).addData(title.text.toString(),note.text.toString());
+      BlocProvider.of<AddDataFirestoreCubit>(context).addData(title.text.toString(),note.text.toString(),url.text.toString());
     }, icon: Icon(Icons.add), label: Text("Submit"));
  }
 
- Widget _videoCheck(context) {
-    return CheckboxListTile(value: true, onChanged: (checkState){
-      BlocProvider.of<AddDataFirestoreCubit>(context);
+ Widget _videoCheck(context,checkedState) {
+    return CheckboxListTile(value: checkedState, onChanged: (checkState){
+      BlocProvider.of<AddDataFirestoreCubit>(context).setCheckStateChange(checkState!);
     },title: Text("Add Video Url"),);
+ }
+
+ Widget _urlInput(BuildContext context) {
+    return TextFormField(controller: url,decoration: InputDecoration(border: OutlineInputBorder(),labelText: "Url"),);
  }
 }
 
