@@ -33,6 +33,8 @@ class AddNoteScreen extends StatelessWidget {
                     SizedBox(height: 10.0,),
                     _noteText(),
                     SizedBox(height: 10.0,),
+                    _videoCheck(context),
+                    SizedBox(height: 10.0,),
                     _submitButton(context)
                   ],
                 ),
@@ -93,6 +95,12 @@ class AddNoteScreen extends StatelessWidget {
     return ElevatedButton.icon(onPressed:(){
       BlocProvider.of<AddDataFirestoreCubit>(context).addData(title.text.toString(),note.text.toString());
     }, icon: Icon(Icons.add), label: Text("Submit"));
+ }
+
+ Widget _videoCheck(context) {
+    return CheckboxListTile(value: true, onChanged: (checkState){
+      BlocProvider.of<AddDataFirestoreCubit>(context);
+    },title: Text("Add Video Url"),);
  }
 }
 

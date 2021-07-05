@@ -12,4 +12,8 @@ class AddDataFirestoreCubit extends Cubit<AddDataFirestoreState> {
     emit(AddDataFirestoreAdding());
     repository.addData(title,note).then((value) => emit(AddDataFirestoreAdded(status: value)));
   }
+
+  void setCheckStateChange(bool checkState){
+    emit(AddDataFirestoreVideoState(checkState));
+  }
 }
