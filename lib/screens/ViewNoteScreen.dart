@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:notes/Services/FirebaseService.dart';
+import 'package:notes/Services/InternetService.dart';
 import 'package:notes/cubit/delete_data_firestore_cubit.dart';
 import 'package:notes/cubit/firestore_data_cubit.dart';
 import 'package:notes/data/Note.dart';
@@ -30,7 +31,12 @@ class ViewNoteScreen extends StatelessWidget {
                       Text(note.note, style: TextStyle(fontSize: 30.0),),
                       SizedBox(height: 30.0,),
                       if(note.url != null) ElevatedButton(onPressed: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>VideoPlayerScreen(url: note.url.toString(),)));
+                        InternetService().checkConnected().then((value)=>{
+                          if(value)
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>VideoPlayerScreen(url: note.url.toString(),)))
+                          else
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Not Connected")))
+                        });
                       }, child: Text("Open Video"))
                     ],
                   ),
