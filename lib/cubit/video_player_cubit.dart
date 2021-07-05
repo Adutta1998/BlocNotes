@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:video_player/video_player.dart';
 part 'video_player_state.dart';
 
 class VideoPlayerCubit extends Cubit<VideoPlayerState> {

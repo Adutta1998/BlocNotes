@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meta/meta.dart';
+import 'package:notes/Services/DatabaseService.dart';
+import 'package:notes/Services/InternetService.dart';
 import 'package:notes/data/Note.dart';
 import 'package:notes/repository/FirebaseRepository.dart';
 
@@ -12,7 +14,14 @@ class FirestoreDataCubit extends Cubit<FirestoreDataState> {
 
   void fetchNotDeletedCollections() {
     emit(FirestoreDataLoading());
-    repository.fetchNotDeletedCollections().then((notes)=>emit(FirestoreDataLoaded(notes)));
+    InternetService().checkConnected().then((value)=>{
+      if(value)
+        repository.fetchNotDeletedCollections().then((notes)=>emit(FirestoreDataLoaded(notes)))
+      else{
+        print("finding cache"),
+        DatabaseService.instance.fetchAll().then((value) => emit(FirestoreDataLoaded(value)))
+      }
+    });
   }
 
   void fetchDeletedCollections() {

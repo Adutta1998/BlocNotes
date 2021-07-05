@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:notes/Services/DatabaseService.dart';
 import 'package:notes/Services/FirebaseService.dart';
 import 'package:notes/data/Note.dart';
 
@@ -14,6 +12,7 @@ class FirebaseRepository{
     List<Map> rawnotes = await service.fetchNDeleted();
     print(rawnotes);
     notes = rawnotes.map((e) => Note.fromJSON(e)).toList();
+    await DatabaseService.instance.insert(notes);
     return notes;
   }
 

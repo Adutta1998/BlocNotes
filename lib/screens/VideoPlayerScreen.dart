@@ -18,34 +18,37 @@ class VideoPlayerScreen extends StatelessWidget {
         child: Scaffold(
             appBar: AppBar(title: Text("Video Player"),),
             body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  FutureBuilder(
-                      future: initializer,
-                      builder: (context,snapshot){
-                        if(snapshot.connectionState == ConnectionState.done){
-                          return AspectRatio(aspectRatio: controller.value.aspectRatio,child: VideoPlayer(controller),);
-                        }else{
-                          return Center(child: CircularProgressIndicator(),);
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    FutureBuilder(
+                        future: initializer,
+                        builder: (context,snapshot){
+                          if(snapshot.connectionState == ConnectionState.done){
+                            return AspectRatio(aspectRatio: controller.value.aspectRatio,child: VideoPlayer(controller),);
+                          }else{
+                            return Center(child: CircularProgressIndicator(),);
+                          }
                         }
-                      }
-                  ),
-                  BlocBuilder<VideoPlayerCubit,VideoPlayerState>(
-                      builder:(context,state){
-                        if(state is VideoPlayerInitial){
-                          return ElevatedButton(onPressed: (){
-                            if(state.playState){
-                              controller.pause();
-                            }else{
-                              controller.play();
-                            }
-                            BlocProvider.of<VideoPlayerCubit>(context).setPlaying(!state.playState);
-                          }, child: (state.playState)?Text("Pause"):Text("Play"));
+                    ),
+                    BlocBuilder<VideoPlayerCubit,VideoPlayerState>(
+                        builder:(context,state){
+                          if(state is VideoPlayerInitial){
+                            return ElevatedButton(onPressed: (){
+                              if(state.playState){
+                                controller.pause();
+                              }else{
+                                controller.play();
+                              }
+                              BlocProvider.of<VideoPlayerCubit>(context).setPlaying(!state.playState);
+                            }, child: (state.playState)?Text("Pause"):Text("Play"));
+                          }
+                          return Text("");
                         }
-                        return Text("");
-                      }
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
       ),

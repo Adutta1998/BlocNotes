@@ -17,7 +17,7 @@ Future<void> main() async{
 
 class RootApp extends StatelessWidget {
   RootApp({Key? key}) : super(key: key);
-  FirebaseRepository repository = FirebaseRepository(service: FirebaseService(init: "Hello"));
+  final FirebaseRepository repository = FirebaseRepository(service: FirebaseService(init: "Hello"));
 
   @override
   Widget build(BuildContext context) {

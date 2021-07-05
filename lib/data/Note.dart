@@ -1,3 +1,13 @@
+class NoteFields{
+  static String id="id";
+  static String title="title";
+  static String note="note";
+  static String deleted="deleted";
+  static String url="url";
+}
+
+
+
 class Note{
   String id;
   String title;
@@ -17,6 +27,14 @@ class Note{
         id=json["id"],
         title=json["title"],
         note=json["note"],
-        deleted=json["deleted"],
+        deleted=(json["deleted"].runtimeType==int)?(json["deleted"]==0)?false:true:json["deleted"],
         url = json["url"];
+
+  Map<String, Object?> toJson()=> {
+    NoteFields.id:id,
+    NoteFields.title:title,
+    NoteFields.note:note,
+    NoteFields.deleted:deleted?1:0,
+    NoteFields.url:url
+  };
 }

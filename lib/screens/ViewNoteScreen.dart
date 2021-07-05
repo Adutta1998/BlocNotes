@@ -30,7 +30,7 @@ class ViewNoteScreen extends StatelessWidget {
                     children: [
                       Text(note.note, style: TextStyle(fontSize: 30.0),),
                       SizedBox(height: 30.0,),
-                      if(note.url != null) ElevatedButton(onPressed: (){
+                      if(note.url != null && note.url!.length>0) ElevatedButton(onPressed: (){
                         InternetService().checkConnected().then((value)=>{
                           if(value)
                             Navigator.of(context).push(MaterialPageRoute(builder: (context)=>VideoPlayerScreen(url: note.url.toString(),)))
