@@ -19,13 +19,20 @@ class FirestoreDataCubit extends Cubit<FirestoreDataState> {
         repository.fetchNotDeletedCollections().then((notes)=>emit(FirestoreDataLoaded(notes)))
       else{
         print("finding cache"),
-        DatabaseService.instance.fetchAll().then((value) => emit(FirestoreDataLoaded(value)))
+        DatabaseService.instance.fetchNotDeleted().then((value) => emit(FirestoreDataLoaded(value)))
       }
     });
   }
 
   void fetchDeletedCollections() {
     emit(FirestoreDeletedDataLoading());
-    repository.fetchDeletedCollections().then((notes) => emit(FirestoreDataDeletedLoaded(notes)));
+    InternetService().checkConnected().then((value)=>{
+      if(value)
+        repository.fetchDeletedCollections().then((notes) => emit(FirestoreDataDeletedLoaded(notes)))
+      else{
+        print("finding cache"),
+        DatabaseService.instance.fetchDeleted().then((value) => emit(FirestoreDataDeletedLoaded(value)))
+      }
+    });
   }
 }

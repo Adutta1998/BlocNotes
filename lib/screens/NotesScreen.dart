@@ -5,7 +5,8 @@ import 'package:notes/cubit/firestore_data_cubit.dart';
 import 'package:notes/screens/NoteTile.dart';
 
 class NotesScreen extends StatelessWidget {
-  const NotesScreen({Key? key}) : super(key: key);
+  final BuildContext homeContext;
+  const NotesScreen({Key? key,required this.homeContext}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class NotesScreen extends StatelessWidget {
           return ListView.builder(
               itemCount: state.notes.length,
               itemBuilder: (_,index){
-                return NoteTile(n: state.notes[index]);
+                return NoteTile(n: state.notes[index],homeContext: homeContext,);
               }
           );
         }

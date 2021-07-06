@@ -6,13 +6,14 @@ import 'package:notes/screens/ViewNoteScreen.dart';
 
 class NoteTile extends StatelessWidget {
   final Note n;
-  const NoteTile({Key? key,required this.n}): super(key: key);
+  final BuildContext homeContext;
+  const NoteTile({Key? key,required this.n, required this.homeContext}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ViewNoteScreen(note: n,))).then((value) => (context as Element).markNeedsBuild());
+        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ViewNoteScreen(note: n,))).then((value) => (homeContext as Element).markNeedsBuild());
       },
       child: Container(
         color: Colors.grey[200],

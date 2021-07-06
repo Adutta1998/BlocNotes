@@ -19,7 +19,7 @@ class TrashScreen extends StatelessWidget {
           return ListView.builder(
               itemCount: state.notes.length,
               itemBuilder: (_,index){
-                return NoteTile(n: state.notes[index]);
+                return NoteTile(n: state.notes[index],homeContext: context,);
               }
           );
         }

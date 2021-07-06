@@ -40,7 +40,18 @@ class DatabaseService {
     var urlType = "TEXT";
     await db.execute(
       '''
-      CREATE TABLE $_tableName(
+      CREATE TABLE ${_tableName}_notDeleted(
+        ${NoteFields.id} $idType,
+        ${NoteFields.title} $textType,
+        ${NoteFields.note} $textType,
+        ${NoteFields.deleted} $boolType,
+        ${NoteFields.url} $urlType
+      );
+      '''
+    );
+    await db.execute(
+      '''
+      CREATE TABLE ${_tableName}_Deleted(
         ${NoteFields.id} $idType,
         ${NoteFields.title} $textType,
         ${NoteFields.note} $textType,
@@ -51,19 +62,35 @@ class DatabaseService {
     );
   }
 
-  Future<void> insert(List<Note> notes) async{
+  Future<void> insertDeleted(List<Note> notes) async{
     final db = await instance.database;
-    await db.rawQuery("DELETE FROM $_tableName");
+    await db.rawQuery("DELETE FROM ${_tableName}_Deleted");
     print("Deleted Previous");
     notes.forEach((note) async{
-      await db.insert(_tableName, note.toJson());
+      await db.insert("${_tableName}_Deleted", note.toJson());
+    });
+  }
+
+  Future<void> insertNotDeleted(List<Note> notes) async{
+    final db = await instance.database;
+    await db.rawQuery("DELETE FROM ${_tableName}_notDeleted");
+    print("Deleted Previous");
+    notes.forEach((note) async{
+      await db.insert("${_tableName}_notDeleted", note.toJson());
     });
   }
 
 
-  Future<List<Note>> fetchAll() async {
+  Future<List<Note>> fetchNotDeleted() async {
     final db = await instance.database;
-    List<Map> rawnotes = await db.query(_tableName);
+    List<Map> rawnotes = await db.query("${_tableName}_notDeleted");
+    print(rawnotes);
+    List<Note> notes = rawnotes.map((e) => Note.fromJSON(e)).toList();
+    return notes;
+  }
+  Future<List<Note>> fetchDeleted() async {
+    final db = await instance.database;
+    List<Map> rawnotes = await db.query("${_tableName}_Deleted");
     print(rawnotes);
     List<Note> notes = rawnotes.map((e) => Note.fromJSON(e)).toList();
     return notes;

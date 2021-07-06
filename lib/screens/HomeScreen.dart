@@ -19,12 +19,12 @@ class HomeScreen extends StatelessWidget {
       body: BlocBuilder<NavigationCubit,NavigationState>(
           builder:(_,state){
             if(state is NavigationInitial){
-              return NotesScreen();
+              return NotesScreen(homeContext: context,);
             }
             if(state is NavigationNavigate){
               var index = state.navigationIndex;
               if(index==0){
-                return NotesScreen();
+                return NotesScreen(homeContext: context);
               } else if(index==1){
                 return TrashScreen();
               }

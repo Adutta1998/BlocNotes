@@ -15,6 +15,8 @@ Also, this feature is different from the description part.
 The video should have the feature of play and pause.
 
 ---
-#### Use SQFLITe to store data locally also(only read operation)(don't use firestone/firebase offline functionality ), this feature will be only used to show data when there is no internet access.
+#### Use SQFLITe to store data locally also
+(only read operation)(don't use firestone/firebase offline functionality ),
+this feature will be only used to show data when there is no internet access.
 ---
 No need to show a play/pause video screen if there is no internet access.

@@ -12,13 +12,14 @@ class FirebaseRepository{
     List<Map> rawnotes = await service.fetchNDeleted();
     print(rawnotes);
     notes = rawnotes.map((e) => Note.fromJSON(e)).toList();
-    await DatabaseService.instance.insert(notes);
+    await DatabaseService.instance.insertNotDeleted(notes);
     return notes;
   }
 
   Future<List<Note>> fetchDeletedCollections() async {
     List<Map> rawnotes = await service.fetchDeleted();
     List<Note> notes = rawnotes.map((e) => Note.fromJSON(e)).toList();
+    await DatabaseService.instance.insertDeleted(notes);
     return notes;
   }
 
